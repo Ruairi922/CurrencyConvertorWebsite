@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Currency Converter</title>
+    <style>
+        /* Your existing styles here */
+
+        body {
+            background: linear-gradient(45deg, #3498db, #e74c3c);
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            color: black;
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Rest of your styles */
+    </style>
+</head>
+<body>
+
+<h1>Currency Converter</h1>
+
+<form id="currencyForm">
+    <label for="amount">Amount:</label>
+    <input type="number" id="amount" required>
+
+    <label for="currency">Currency:</label>
+    <select id="currency" required>
+        <option value="USD">USD</option>
+        <option value="JPY">JPY</option>
+        <option value="GBP">GBP</option>
+        <option value="AUD">AUD</option>
+        <option value="CAD">CAD</option>
+        <option value="CHF">CHF</option>
+        <option value="CNY">CNY</option>
+        <option value="SEK">SEK</option>
+        <option value="NZD">NZD</option>
+        <option value="MXN">MXN</option>
+        <option value="SGD">SGD</option>
+        <option value="HKD">HKD</option>
+        <option value="NOK">NOK</option>
+        <option value="KRW">KRW</option>
+        <option value="TRY">TRY</option>
+        <option value="INR">INR</option>
+        <option value="BRL">BRL</option>
+        <option value="ZAR">ZAR</option>
+        <option value="RUB">RUB</option>
+        <!-- Add more currency options as needed -->
+    </select>
+
+    <label for="convertTo">Convert:</label>
+    <select id="convertTo" required>
+        <option value="toEuro">To Euro</option>
+        <option value="fromEuro">From Euro</option>
+    </select>
+
+    <button type="button" onclick="convertCurrency()">Convert</button>
+</form>
+
+<p id="result"></p>
+
+<script>
+    function convertCurrency() {
+        const amount = parseFloat(document.getElementById('amount').value);
+        const currency = document.getElementById('currency').value;
+        const conversionType = document.getElementById('convertTo').value;
+
+        let result;
+
+        if (conversionType === 'toEuro') {
+            result = converterToEuro(amount, currency);
+        } else {
+            result = converterFromEuro(amount, currency);
+        }
+
+        if (result !== null) {
+            document.getElementById('result').innerText = `Result: ${result.toFixed(2)}`;
+        } else {
+            document.getElementById('result').innerText = 'Unsupported currency';
+        }
+    }
+
+    function converterFromEuro(amount, currency) {
+        const exchangeRates = {
+            'USD': 1.11,
+            'JPY': 0.0063,
+            'GBP': 1.15,
+            'AUD': 0.62,
+            'CAD': 0.68,
+            'CHF': 1.07,
+            'CNY': 0.13,
+            'SEK': 0.091,
+            'NZD': 0.57,
+            'MXN': 0.053,
+            'SGD': 0.68,
+            'HKD': 0.12,
+            'NOK': 0.089,
+            'KRW': 0.00070,
+            'TRY': 0.031,
+            'INR': 0.011,
+            'BRL': 0.19,
+            'ZAR': 0.049,
+            'RUB': 0.0098,
+            // Add more exchange rates as needed
+        };
+
+        if (exchangeRates[currency]) {
+            return amount * exchangeRates[currency];
+        } else {
+            return null;
+        }
+    }
+
+    function converterToEuro(amount, currency) {
+        const exchangeRates = {
+            'USD': 0.91,
+            'JPY': 0.0063,
+            'GBP': 1.16,
+            'AUD': 0.61,
+            'CAD': 0.68,
+            'CHF': 1.07,
+            'CNY': 0.13,
+            'SEK': 0.091,
+            'NZD': 0.57,
+            'MXN': 0.053,
+            'SGD': 0.68,
+            'HKD': 0.12,
+            'NOK': 0.089,
+            'KRW': 0.00070,
+            'TRY': 0.031,
+            'INR': 0.011,
+            'BRL': 0.19,
+            'ZAR': 0.049,
+            'RUB': 0.0098,
+            // Add more exchange rates as needed
+        };
+
+        if (exchangeRates[currency]) {
+            return amount * exchangeRates[currency];
+        } else {
+            return null;
+        }
+    }
+</script>
+
+</body>
+</html>
